@@ -1,0 +1,446 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #007bff;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #007bff !important; /* Azul principal com maior prioridade */
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+/* File Input Styles */
+input[type="file"] {
+    display: none; /* Esconde o input de arquivo real */
+}
+
+label {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+label:hover {
+    background-color: #0056b3;
+}
+
+/* Button Styles */
+button {
+    background-color: #007bff; /* Azul principal */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+    color: white;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+td {
+    border-right: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para a célula do botão "X" */
+th.remove-column {
+    text-align: center;
+    position: relative;
+    width: 50px; /* Define uma largura fixa para a coluna do botão "X" */
+}
+
+/* Estilo para o botão "X" */
+.remove-table-button {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.remove-table-button:hover {
+    background-color: #a71d2a; /* Vermelho mais escuro ao passar o mouse */
+}
+
+/* Remover margin-top apenas para o botão "X" no cabeçalho */
+th.remove-column .remove-table-button {
+    margin-top: 0 !important; /* Remove a margem superior */
+}
+
+/* Secondary Table Styles */
+#secondaryTable {
+    margin-top: 20px;
+}
+
+#secondaryTable button {
+    margin-right: 5px;
+}
+
+/* Main Table Container Styles */
+#mainTableContainer {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#mainTableContainer.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#mainTableContainer.hidden {
+    display: none;
+}
+
+.whatsapp-link {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.whatsapp-link:hover {
+    text-decoration: underline;
+}
+
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Esconde por padrão */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#loadingOverlay.visible {
+    display: flex; /* Mostra quando a classe 'visible' é adicionada */
+}
+
+#loadingBox {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#loadingSpinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loadingSpinner.hidden {
+    display: none; /* Esconde o spinner */
+}
+
+#loadingMessage {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#loadingOkButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#loadingOkButton:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+#searchContainer {
+    position: relative;
+    margin: 10px 0;
+}
+
+#searchButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#searchBar {
+    display: none;
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#searchBar.hidden {
+    display: none;
+}
+
+#searchResults {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #fff;
+}
+
+#searchResults div {
+    padding: 5px;
+    cursor: pointer;
+}
+
+#searchResults div:hover {
+    background: #f0f0f0;
+}
+
+.highlight {
+    background-color: yellow !important;
+}
+
+.table-title {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff; /* Azul principal */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px; /* Ajustado para evitar que os elementos fiquem muito próximos das bordas */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra mínima */
+    z-index: 1000;
+    transition: box-shadow 0.2s ease;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-icon {
+    margin-left: 10px;
+    width: 20px; /* Reduzi o tamanho da largura */
+    height: 20px; /* Reduzi o tamanho da altura */
+}
+
+.navbar-title {
+    font-size: 1.5rem; /* Aumentado de 1.25rem para 1.5rem */
+    font-weight: 500;
+    margin-left: 10px; /* Espaço entre o título e o ícone */
+}
+
+.navbar-right {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre os botões */
+}
+
+.navbar-right button {
+    background-color: white; /* Botão branco */
+    color: #007bff; /* Texto azul */
+    border: 1px solid #007bff; /* Borda azul */
+    padding: 10px 15px; /* Ajuste o padding para centralizar melhor o texto */
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: inline-flex; /* Use inline-flex para evitar problemas de alinhamento */
+    align-items: center; /* Alinha o texto verticalmente */
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    height: 40px; /* Altura fixa para consistência */
+    line-height: 1; /* Garante que o texto fique centralizado */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho */
+    min-width: 120px; /* Define uma largura mínima consistente */
+}
+
+.navbar-right button:hover {
+    background-color: #0056b3; /* Fundo mais escuro ao passar o mouse */
+    color: white; /* Texto branco */
+}
+
+.second-title{
+    color: #007bff;
+}
+
+#sendContainer,
+#singleSendContainer {
+    margin-top: 70px; /* Espaço para a barra fixa */
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#customMessage {
+    width: 100%;
+    height: 80px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensagem de arquivos selecionados */
+#fileCount, #fileCountSingle {
+    color: #007bff; /* Azul principal */
+    font-weight: bold;
+}
+
+.message-container {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.message-container textarea {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    resize: none;
+}
+
+.message-container button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.message-container button:hover {
+    background-color: #0056b3;
+}
+
+.message-container button:last-child {
+    background-color: #dc3545;
+}
+
+.message-container button:last-child:hover {
+    background-color: #a71d2a;
+}
+
+.message-container button:nth-child(4):hover {
+    background-color: #e7c437; /* Amarelo mais escuro ao passar o mouse */
+    color: #333; /* Mantém o texto escuro */
+}
+
+.table-container button {
+    margin-top: 15px; /* Adiciona margem superior para separar o botão da tabela */
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>WhatsAuto</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/style.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="js/papaparse.min.js"></script>
+    <script defer src="js/script.js"></script>
+    <link rel="icon" type="image/png" href="icon/icon.png">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-left">
+                <img class="navbar-icon" src="icon/telefone-branco.png" alt="logo-branca">
+                <span class="navbar-title"><b>WHATSAUTO</b></span>
+            </div>
+            <div class="navbar-right">
+                <button id="loadButton">Carregar Arquivos</button>
+                <button id="sendMessagesButton">Enviar Mensagens</button>
+                <button id="clearButton">Limpar</button>
+            </div>
+        </div>
+    </header>
+    <main id="sendContainer">
+        <p>Antes de iniciar o processo, certifique-se que você está logado no <a href="https://web.whatsapp.com/" class="whatsapp-link" target="_blank">WhatsApp</a> com o número correto.</p>
+        <p>O envio de mensagens é automático, caso precise pausar, pressiote <b>CTRL + Ç</b> para que a aplicação fique pausada.</p>
+        <p>Para conferir o estado da aplicação, vizualize o terminal que abre junto ao sistema</p>
+        <h2>Envio Automático</h2>
+        <span id="fileCount">Nenhum arquivo selecionado</span><br><br>
+        <label style="margin-top: 10px;" for="csvFile">Escolher Arquivos</label><br>
+        <input type="file" id="csvFile" accept=".csv" multiple />
+        <div id="tablesContainer"></div>
+        <div id="secondaryTableContainer" style="display: none;">
+            <h2 class="table-title">Telefones Secundários</h2>
+            <table id="secondaryTable" border="1">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone2</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div id="loadingOverlay" class="hidden">
+        <div id="loadingBox">
+            <div id="loadingSpinner"></div>
+            <p id="loadingMessage">Encaminhando mensagem...</p>
+            <button id="loadingOkButton" class="hidden">Ok</button>
+        </div>
+    </div>
+</body>
+</html>
