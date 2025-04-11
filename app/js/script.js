@@ -503,7 +503,7 @@ function getPhoneFromRow(row, phoneColumnIndex) {
         return row[phoneColumnIndex];
     }
 
-    const possiblePhoneIndexes = [12, 13, 14, 17];
+    const possiblePhoneIndexes = [12, 13, 14, 15, 17];
     for (const index of possiblePhoneIndexes) {
         if (row[index]?.trim() && row[index].match(/\d{4}-\d{4}/)) {
             return row[index];
