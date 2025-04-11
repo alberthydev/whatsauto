@@ -309,7 +309,7 @@ async function calculateFileHash(file) {
     return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-const processFile = (file, fileHash) => { // Define the processFile function
+const processFile = (file, fileHash) => { //Define a função processFile
     return new Promise((resolve, reject) => {
         const extractedData = {
             destino: "Não informado",
@@ -396,41 +396,41 @@ const processFile = (file, fileHash) => { // Define the processFile function
     });
 };
 
-const processAllFiles = async (files) => { // Accept files as a parameter
-    const newPassengers = []; // Store passengers from new files
+const processAllFiles = async (files) => { // Aceita arquivos como parâmetro
+    const newPassengers = []; // Armazena passageiros de novos arquivos
 
     for (const file of files) {
         const fileHash = await calculateFileHash(file);
         if (processedFileHashes.has(fileHash)) {
             console.warn(`Arquivo duplicado ignorado: ${file.name}`);
-            continue; // Ignore duplicate files
+            continue; // Ignora arquivos duplicados
         }
         processedFileHashes.add(fileHash);
 
-        const extractedData = await processFile(file, fileHash); // Use processFile here
+        const extractedData = await processFile(file, fileHash); // Aqui usa processFile
         newPassengers.push(...extractedData.passageiros);
 
-        // Create a table for each destination
+        // Cria uma tabela para cada destino
         createTableForDestination(extractedData.destino, extractedData.passageiros, fileHash);
     }
 
-    // Merge new passengers with existing ones
+    // Agrupa novos passageiros com os já existentes
     allExtractedData.passageiros.push(...newPassengers);
 
-    // Update the secondary table
+    // Atualiza a tabela secundária
     populateSecondaryTable(allExtractedData.passageiros);
 };
 
 document.getElementById("loadButton").addEventListener("click", function() {
     const fileInput = document.getElementById("csvFile");
-    const files = fileInput.files; // Declare and assign files here
+    const files = fileInput.files; // Declara e define os arquivos
 
     if (files.length === 0) {
         console.error("Nenhum arquivo selecionado.");
         return;
     }
 
-    processAllFiles(files); // Pass files as an argument
+    processAllFiles(files); // Passa os arquivos como argumentos
 });
 
 document.getElementById("clearButton").addEventListener("click", function() {
@@ -444,14 +444,14 @@ function showLoadingOverlay(message) {
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     loadingMessage.textContent = message;
-    loadingOkButton.classList.add('hidden'); // Hide the "Ok" button initially
-    loadingSpinner.classList.remove('hidden'); // Ensure the spinner is visible
-    loadingOverlay.classList.add('visible'); // Show the overlay
+    loadingOkButton.classList.add('hidden'); // Esconde o botão "Ok"
+    loadingSpinner.classList.remove('hidden'); // Assegura que o spinner está visivel
+    loadingOverlay.classList.add('visible'); // Mostra o overlay
 }
 
 function hideLoadingOverlay() {
     const loadingOverlay = document.getElementById('loadingOverlay');
-    loadingOverlay.classList.remove('visible'); // Hide the overlay
+    loadingOverlay.classList.remove('visible'); // Esconde o overlay
 }
 
 function showSuccessMessage() {
@@ -460,11 +460,11 @@ function showSuccessMessage() {
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     loadingMessage.textContent = 'Todas as mensagens foram enviadas!';
-    loadingOkButton.classList.remove('hidden'); // Show the "Ok" button
-    loadingSpinner.classList.add('hidden'); // Hide the spinner
+    loadingOkButton.classList.remove('hidden'); // Mostra o botão "Ok"
+    loadingSpinner.classList.add('hidden'); // Esconde o spinner
 }
 
-// Add event listener to the "Ok" button to hide the overlay
+// Add um event listener para o botão "Ok" para esconder o overlay
 document.getElementById('loadingOkButton').addEventListener('click', hideLoadingOverlay);
 
 document.getElementById("sendMessagesButton").addEventListener("click", async function() {
@@ -474,7 +474,7 @@ document.getElementById("sendMessagesButton").addEventListener("click", async fu
     }
 
     showLoadingOverlay('Encaminhando mensagem...');
-    await sendMessages(allExtractedData.passageiros, false); // Envio sem pausa
+    await sendMessages(allExtractedData.passageiros, false);
 });
 
 window.addEventListener("scroll", () => {
@@ -490,7 +490,7 @@ window.addEventListener("scroll", () => {
 function detectPhoneColumn(headerRow) {
     for (let i = 0; i < headerRow.length; i++) {
         const cell = headerRow[i]?.toLowerCase();
-        if (cell && (cell.includes("telefone") || cell.includes("contato") || cell.match(/\d{4}-\d{4}/))) {
+        if (cell && (cell.includes("9.9") || cell.includes("telefone") || cell.includes("contato") || cell.match(/\d{4}-\d{4}/))) {
             return i; // Retorna o índice da coluna de telefone
         }
     }
