@@ -87,12 +87,6 @@ async function sendMessageToWhatsApp(phone, ddd, message) {
 
         const data = await response.json();
 
-        if (response.status === 403) {
-            console.error('Application is paused. Cannot send messages.');
-            isPaused = true; // Atualiza o estado local para pausado
-            return; // Interrompe o envio de mensagens
-        }
-
         if (data.status) {
             console.log(data.status);
         } else {
@@ -262,8 +256,10 @@ function createTableForDestination(destination, passageiros, fileHash) {
 
         try {
             for (const passageiro of passageiros) {
-                const message = customMessage.replace('{nome}', passageiro.nome);
-                await sendMessageToWhatsApp(passageiro.telefone, passageiro.ddd, message);
+                if (passageiro.tipoViagem !== "Volta") { // Verifica se o tipo de viagem não é "Volta"
+                    const message = customMessage.replace('{nome}', passageiro.nome);
+                    await sendMessageToWhatsApp(passageiro.telefone, passageiro.ddd, message);
+                }
             }
 
             showSuccessMessage(); // Exibe a mensagem de sucesso após o envio
@@ -332,6 +328,7 @@ const processFile = (file, fileHash) => { //Define a função processFile
                         // Detectar a coluna de telefone dinamicamente
                         if (i === 9) { // Supondo que a linha 9 seja o cabeçalho
                             phoneColumnIndex = detectPhoneColumn(row);
+                            console.log(phoneColumnIndex);
                             continue; // Pular para a próxima linha
                         }
 
@@ -490,7 +487,7 @@ window.addEventListener("scroll", () => {
 function detectPhoneColumn(headerRow) {
     for (let i = 0; i < headerRow.length; i++) {
         const cell = headerRow[i]?.toLowerCase();
-        if (cell && (cell.includes("9.9") || cell.includes("telefone") || cell.includes("contato") || cell.match(/\d{4}-\d{4}/))) {
+        if (cell && (cell.includes("observações"))) {
             return i; // Retorna o índice da coluna de telefone
         }
     }
@@ -503,7 +500,7 @@ function getPhoneFromRow(row, phoneColumnIndex) {
         return row[phoneColumnIndex];
     }
 
-    const possiblePhoneIndexes = [12, 13, 14, 15, 17];
+    const possiblePhoneIndexes = [12, 13, 14, 15, 16, 17];
     for (const index of possiblePhoneIndexes) {
         if (row[index]?.trim() && row[index].match(/\d{4}-\d{4}/)) {
             return row[index];
@@ -524,15 +521,17 @@ async function sendMessages(passageiros) {
     console.log('Iniciando envio de mensagens...'); // Log inicial
 
     for (const passageiro of passageiros) {
-        const message = createMessage(passageiro); // Use a função para criar a mensagem
+        if (passageiro.tipoViagem !== "Volta") { // Verifica se o tipo de viagem não é "Volta"
+            const message = createMessage(passageiro); // Use a função para criar a mensagem
 
-        try {
-            console.log(`Enviando mensagem para: ${passageiro.nome}`); // Log para depuração
-            console.log(`Mensagem: ${message}`); // Log para verificar a mensagem gerada
-            await sendMessageToWhatsApp(passageiro.telefone, passageiro.ddd, message);
-            passageiro.encaminhada = 1; // Marca como enviada
-        } catch (error) {
-            console.error(`Erro ao enviar mensagem para ${passageiro.nome}:`, error);
+            try {
+                console.log(`Enviando mensagem para: ${passageiro.nome}`); // Log para depuração
+                console.log(`Mensagem: ${message}`); // Log para verificar a mensagem gerada
+                await sendMessageToWhatsApp(passageiro.telefone, passageiro.ddd, message);
+                passageiro.encaminhada = 1; // Marca como enviada
+            } catch (error) {
+                console.error(`Erro ao enviar mensagem para ${passageiro.nome}:`, error);
+            }
         }
     }
 
