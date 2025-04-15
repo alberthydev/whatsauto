@@ -98,6 +98,6 @@ def send_message():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    print("Iniciando API e listener de teclado...")  # Mensagem para indicar que o servidor está iniciando
+    print("Iniciando API...")  # Mensagem para indicar que o servidor está iniciando
     threading.Thread(target=start_keyboard_listener, daemon=True).start()
     app.run(port=5000)
